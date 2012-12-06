@@ -16,7 +16,7 @@ import static org.apache.commons.lang.math.RandomUtils.nextInt;
  *  */
 public class PrintManager {
     private static final int SIZE = 3;
-    private PrintingQueue printingQueue = new PrintingQueue(SIZE);
+    private PrintingQueue<String> printingQueue = new PrintingQueue<String>(SIZE);
 
 
     public void spoolMessage(String message){

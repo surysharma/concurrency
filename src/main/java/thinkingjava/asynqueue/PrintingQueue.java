@@ -10,16 +10,16 @@ import java.util.Queue;
  * Time: 19:37
 *
  *  */
-public class PrintingQueue {
+public class PrintingQueue <T>{
     private int size;
 
-    private Queue<String> queue = new ArrayDeque<String>(size);
+    private Queue<T> queue = new ArrayDeque<T>(size);
 
     public PrintingQueue(int size) {
         this.size = size;
     }
 
-    public synchronized String remove() {
+    public synchronized T remove() {
         while (queue.size() == 0){
             try {
                 System.out.println(String.format("Queue is empty, can't remove!!!, pl. wait..."));
@@ -32,7 +32,7 @@ public class PrintingQueue {
         return queue.remove();
     }
 
-    public synchronized void add(String message) {
+    public synchronized void add(T message) {
         while (queue.size() == size){
             try {
                 System.out.println(String.format("Queue full, !!!, pl. wait..."));
