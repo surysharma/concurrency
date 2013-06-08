@@ -41,7 +41,7 @@ public class MessageClient {
         }, "Consumer-Thread");
 
         msgConsumer.start();
-//        msgProducer.start();
+        msgProducer.start();
 
     }
 

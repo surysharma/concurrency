@@ -23,13 +23,12 @@ public class FixedSizeMessageQueue implements CommitMessageQueue{
         synchronized (mutex) {
             while (counter >= commitMessages.length){
                 System.out.println(String.format("Producer: Queque full, message %s waiting...", commitMessage));
-                waitToBeNotified();
+                waitToBeNotified(mutex);
             }
-            System.out.println("commitMessages.length: " +commitMessages.length);
             commitMessages[++counter] = commitMessage;
             System.out.println(String.format("Producer: Adding message %s and notifying...", commitMessage));
 
-            notify();
+            mutex.notify();
 
         }
     }
@@ -39,12 +38,12 @@ public class FixedSizeMessageQueue implements CommitMessageQueue{
         synchronized (mutex) {
             while (counter < 0) {
                 System.out.println(String.format("CONSUMER: Queque empty, waiting..."));
-                waitToBeNotified();
+                waitToBeNotified(mutex);
             }
 
             CommitMessage commitMessage = commitMessages[counter--];
             System.out.println(String.format("CONSUMER: Removing message %s and notifying...", commitMessage));
-            notify();
+            mutex.notify();
             return commitMessage;
         }
     }
@@ -68,9 +67,9 @@ public class FixedSizeMessageQueue implements CommitMessageQueue{
     }
 
 
-    private void waitToBeNotified() {
+    private void waitToBeNotified(Object mutex) {
         try {
-            wait();
+            mutex.wait();
         } catch (InterruptedException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
