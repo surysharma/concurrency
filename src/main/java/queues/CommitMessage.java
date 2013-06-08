@@ -19,4 +19,12 @@ public class CommitMessage {
     public String getPayload() {
         return payload;
     }
+
+    @Override
+    public String toString() {
+        return "CommitMessage{" +
+                "header='" + header + '\'' +
+                ", payload='" + payload + '\'' +
+                '}';
+    }
 }

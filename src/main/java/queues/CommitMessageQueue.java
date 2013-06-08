@@ -5,7 +5,7 @@ package queues;
  */
 public interface CommitMessageQueue {
     public void add(CommitMessage commitMessage);
-    public void remove(CommitMessage commitMessage);
+    public CommitMessage remove();
     public void peek();
     public void poll();
 }
